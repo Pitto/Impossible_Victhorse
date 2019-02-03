@@ -531,9 +531,9 @@ do
 	
 	
 	#IFDEF __FB_LINUX__
-		sleep 10,1
+		sleep 20,1
 	#ELSE
-		sleep 10,1
+		sleep 20,1
 	#ENDIF 
 	
 	
