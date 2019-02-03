@@ -1,0 +1,15 @@
+D...........Enable / Disable on screen Debug
+   > F1..........Show / Hide help
+   > A...........Show / Hide Camera info
+   > B...........Show / Hide Player bounding box
+   > C...........Show / Hide Player Collision
+   > E...........Show / Hide Tile Power
+   > G...........Show / Hide Level Grid
+   > J...........Show / Hide Joystick info
+   > K...........Show / Hide Keyword info
+   > L...........Show / Hide Level info
+   > N...........Show / Hide Player info
+   > Q...........Show / Hide Items info
+   > T...........Show / Hide Compute Time
+   > X...........Show / Hide items bounds
+   

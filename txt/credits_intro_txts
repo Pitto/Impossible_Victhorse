@@ -1,0 +1,182 @@
+
+*I M P O S S I B L E
+
+*V I C T H O R S E
+a platform game by Pitto - 2019
+
+entry for the programming contest
+
+*A Love Letter to Freebasic
+
+
+Dedicated to the memory
+of the time of my childhood
+spent playing arcade games
+on Commodore 64 and Amiga 1200
+
+
+*Pitto
+Game design, coding & graphics
+
+
+*Selene
+Level Design, Game testing & tips
+
+
+*Skellum
+Game testing & tips
+
+
+
+* - - <<< SPECIAL THANKS TO >>> - - 
+
+
+*My wife
+that every day with superhuman patience
+tolerates a 40-year-old idealistic and impractical dreamer
+who still draws, plays and programs puppets
+
+
+
+
+
+
+*--- THANKS TO ---
+
+
+*Lachie Dazdarian
+for having promoted the contest "A love letter to Freebasic"
+and for his tutorials about creating a game in FB
+http://games.freebasic.net/
+
+
+*...And also to those published
+
+*very useful pieces of code
+
+*that I've used in this game:
+
+
+*D. J. Peters
+for his FBSound library and also the fbGFXAddon
+shiny3d.de/public/fbsound/fbsound-1.0.zip
+
+
+*Jonathan Whiting
+for his tutorial concerning collision detecion on tile-based games
+jonathanwhiting.com/
+
+
+*Bulrush
+for his routine: Read text file into array
+freebasic.net/forum/viewtopic.php?f=7&t=24284
+ 
+ 
+*PaulDoe
+for his Type Keyboard
+freebasic.net/forum/viewtopic.php?f=15&t=26673
+
+
+*Rolliebollocks
+Easy to use High Scores Table for Games W/ Display
+freebasic.net/forum/viewtopic.php?t=15578
+
+
+*Imortis
+OOP tutorial
+freebasic.net/forum/viewtopic.php?t=11804
+
+
+I did use also this litte useful sub "utility_consmessage"
+for debugging purpouses, (see inc/functions.bi)
+but at the moment I don't remember wich user in the forum wrote it,
+I will update the credit as soon as possible
+
+
+*I wish thank also:
+
+
+*CoderJeff
+
+
+*MrSwiss
+
+
+*The Freebasic developers
+
+
+*ALL THOSE CONTIBUTED
+
+*TO THE FREEBASIC MANUAL
+
+
+*Ebben Feagan and Richard Clark
+for their useful book 'A Beginner's Guide to FreeBasic'
+
+
+*The Geany Editor developers
+www.geany.org
+
+
+*Modarchive.org
+For his wide collection of MOD's audio file
+
+once_is_not_enough.mod by Zilly Mike
+Licensed under the Attribution license
+
+the_nada_one.mod by Andreas Viklund
+Licensed under the Attribution license
+
+drozerix_-_neon_techno.mod by Drozerix
+Licensed under Public Domain 
+
+sgs-excl.mod by Songerson
+Licensed under Attribution Share Alike license
+
+Some sound samples from
+https://www.contralogic.com/256-nes-samples/
+
+----
+
+The horse animation is based on
+https://www.youtube.com/watch?v=IEqccPhsqgA
+Race Horse First Film Ever 1878 Eadweard Muybridge
+I think it is in public domain ;)
+
+
+
+*David Capello
+www.aseprite.org
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*A Love Letter to Freebasic
+
++--------------------------------------------------+
+|    This software is Licensed under the Terms     |
+|  of GNU Lesser General Public License version 3  |
++--------------------------------------------------+
