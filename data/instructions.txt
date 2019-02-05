@@ -5,6 +5,7 @@ D...........Enable / Disable on screen Debug
    > C...........Show / Hide Player Collision
    > E...........Show / Hide Tile Power
    > G...........Show / Hide Level Grid
+   > I...........Show / Hide Player input info
    > J...........Show / Hide Joystick info
    > K...........Show / Hide Keyword info
    > L...........Show / Hide Level info
