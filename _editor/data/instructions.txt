@@ -1,0 +1,72 @@
+F1..........Show / Hide help
+ESCAPE......save and exit
+
+mode change____________________________
+B...........BLOCK
+E...........EMPTY
+O...........OBJECT
+M...........META
+W...........WALLPAPER
+S...........SELECT
+
+navigation_____________________________
+
+ARROW KEYS.................move map
+SPACEBAR + LEFT CLICK......move map &
+                           comeback to
+                           block mode
+
+Attributes selection___________________
+mouse wheel.............+/- 1 increment
+mouse wheel + SHIFT.....+/- 10 increment
+
+level dimensions_______________________
+CTRL + DOWN...add row
+CTRL + UP.....delete row
+CTRL + RIGHT..add column
+CTRL + LEFT...remove column
+
+OBJECTS Presets________________________
+Keys 0-8......enemy N preset
+U.............Updown platform
+K.............Keyword
+F.............Floppy
+
+BLOCK Presets__________________________
+Z.............Limit for items movements
+P.............Block Platform
+V.............Block Evanescence
+X.............Block Wood Box
+
+META Presets___________________________
+I.............Enter Location
+Q.............Exit Location
+
+WALLPAPER______________________________
+
+To clean the wallpaper of a tile select
+the wallpaper id 0. Empty mode cleans the
+tile but not the wallpaper.
+
+OTHER__________________________________
+
+in select mode
+CTRL + C......COPY TILE in clipboard
+right click...PASTE copied tile in current position
+TAB...........navigate the tile attributes
+mouse wheel...modify the selected attribute
+              
+in block mode
+CTRL + T......assign right tile to the block tile (it is only a beautify command).
+              
+IMPORTANT______________________________
+
+Ensure that the grid of the level is made
+at least of 14 x 14 tiles, or the block
+tiles may not be correctly shown in the
+game.
+
+Ensure that in the level there are an Enter
+location and a exit location.
+
+

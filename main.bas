@@ -189,6 +189,17 @@ level_file_name = ""
 	Background_music(3).play
 #ENDIF
 
+type f_t_s_proto
+	oldTimer as double
+	update_physics as boolean
+end type
+
+dim f_t_s as f_t_s_proto
+f_t_s.oldTimer = Timer
+f_t_s.update_physics = true
+
+
+
 'just a workaround to syncronize better the intro
 game_handler.set_section_timing (timer)
 
@@ -206,6 +217,11 @@ do
 	
 	'reset sound into sound queue
 	sound_handler.set_queued_sound(0)
+	
+	'IMPORTANT!
+	if Timer > f_t_s.oldTimer + FIXED_TIME_STEP then
+		f_t_s.update_physics = true
+	end if
 	
 	select case game_handler.get_game_section()
 		case _game_section_INTRO
@@ -284,21 +300,25 @@ do
 			#ENDIF
 			
 
-			
-			level.update_level_blocks()
-			level.update_level_items(@victor.points, victor.get_player_position(), sound_handler, victor.difficulty_ratio)
+			if f_t_s.update_physics then
+				level.update_level_blocks()
+				level.update_level_items(@victor.points, victor.get_player_position(), sound_handler, victor.difficulty_ratio)
+			end if
 			
 			level.items = level.delete_selected_items(level.items)
 			
 			player_input.get_input(joystick, keyboard)
-			victor.update_player(player_input, level, sound_handler)
 			
-			if victor.is_dead = false then
-				victor.check_block_collision(level.tiles(), level)
-				victor.check_item_collision (level.items, level, sound_handler)
+			if f_t_s.update_physics then
+				victor.update_player(player_input, level, sound_handler)
+				
+				if victor.is_dead = false then
+					victor.check_block_collision(level.tiles(), level)
+					victor.check_item_collision (level.items, level, sound_handler)
+				end if
+				
+				camera.update(victor.x_sight, victor.y_sight)
 			end if
-			
-			camera.update(victor.x_sight, victor.y_sight)
 			
 			debug_info.update(keyboard)
 			
@@ -323,8 +343,6 @@ do
 			end if
 			
 
-			
-			
 		case _game_section_GAME_OVER
 		
 			victor.update_player(player_input, level, sound_handler)
@@ -368,13 +386,15 @@ do
 	end select
 	
 
-	
+	'important!
+	if f_t_s.update_physics then
+		f_t_s.update_physics = false
+		f_t_s.oldTimer = Timer
+	end if
 	
 	'draw________________________________________________________________
 	
-	#IFDEF DEBUG_MODE
-		debug_info.get_time(Timer, True, True)
-	#ENDIF
+	
 	
 	canvas.clear_canvas()
 	
@@ -459,9 +479,8 @@ do
 		
 	end select
 
-
 	#IFDEF DEBUG_MODE
-		debug_info.get_time(Timer, True, False)
+		debug_info.get_time(Timer, True, True)
 	#ENDIF
 	
 	
@@ -482,6 +501,10 @@ do
 	if canvas.original_size <> 0 then
 		put (0, 0), canvas.original_size, pset
 	end if
+	
+	#IFDEF DEBUG_MODE
+		debug_info.get_time(Timer, True, True)
+	#ENDIF
 	
 	#IFDEF DEBUG_MODE
 	
@@ -513,6 +536,10 @@ do
 	
 	screenunlock
 	
+	#IFDEF DEBUG_MODE
+		debug_info.get_time(Timer, True, False)
+	#ENDIF
+	
 	#IFDEF COMPILE_MUSIC_AND_SFX
 		'play the queued sound, if present
 		if 	sound_handler.get_queued_sound() andalso _
@@ -531,9 +558,9 @@ do
 	
 	
 	#IFDEF __FB_LINUX__
-		sleep 10,1
+		sleep 5,1
 	#ELSE
-		sleep 20,1
+		sleep 5,1
 	#ENDIF 
 	
 	

@@ -1,0 +1,52 @@
+NONE
+----
+SOLID
+	BLOCK
+	BLOCK_BREAK
+	BLOCK_NE
+	BLOCK_SE
+	BLOCK_NW
+	BLOCK_SW
+	STAIR
+	ROLL
+		-DIRECTION (L-R)
+		-SPEED
+	PADDLE_HORZ
+		-DIRECTION (L-R)
+		-SPEED
+	PADDLE_VERT
+		-DIRECTION (U-D)
+		-SPEED
+	SPIKES
+	DUST
+		-TIME_OVER
+	PADDLE_TIMER
+		-TIME_ON
+	DOOR
+		-COLOR
+		-STATUS (open, closed)
+	BLADE
+		-TIME_OVER
+	
+WALLPAPER
+	ID
+META
+	LEVEL
+		-type (entry, exit, boss)
+	ENEMY_GENERATOR
+	
+OBJECT
+	KEY
+		-COLOR
+	COIN
+	KEYWORD
+		-ID
+	POWERUP
+		-TYPE
+	TXT
+		-ID
+ENEMY
+	TYPE
+		(left, right, watch, random, left_right, up_down, seek)
+	SPEED
+	POWER

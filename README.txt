@@ -147,6 +147,13 @@ CHECK Java the Hutt level respawn
 
 **** CHECK ALL " check this " COMMENTS in the code!!!! ****
 
+2019.02.06 - 0.5.5
+
+* Improved a bit the smoothness on Windows
+* Now the physics are update at given time (1/55 sec ATM)
+
+---
+
 2019.02.03 - 0.5.4
 
 * FIRST PUBLIC REPOSITORY RELEASE

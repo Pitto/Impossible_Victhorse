@@ -27,7 +27,7 @@
 
 'define and consts______________________________________________________
 #define APP_NAME 				"IMPOSSIBLE VICTHORSE"
-#define APP_VERSION 			"Version 0.5.4"
+#define APP_VERSION 			"Version 0.5.5"
 #define APP_AUTHOR 				"Pitto"
 #define SCR_W 					640		
 #define SCR_H 					480
@@ -36,6 +36,8 @@
 #define TILE_FIELD_MAX_VALUE	255
 
 #define MAX_NO_OF_LEVELS		8
+
+#define FIXED_TIME_STEP 		1.0/55
 
 
 #define BTN_W					90 'GUI standard button width
