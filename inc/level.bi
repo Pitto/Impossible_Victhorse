@@ -1309,6 +1309,14 @@ sub level_proto.update_level_items (points as Ulong ptr, player_position as posi
 					if item->id = ITEM_ID_PLAYER_BULLET then
 						item->speed *= PLAYER_BULLET_FRICTION
 						item->y += GRAVITY
+					else
+						if 	(Timer - item->initialization_time) > _
+							ITEM_ID_PLAYER_BULLET_DIRECTIONAL_SPAN_LIFE then
+								item->delete_me = true
+								'create some fog
+								this.items = this.add_item(@this.items, item->x, item->y, ITEM_LITTLE_W, ITEM_LITTLE_H, 0, 0, ITEM_ID_CLOUD, "", 0, difficulty_ratio)
+
+						end if
 					end if
 					
 					'delete the bullet if it goes outside the level or touches any solid block

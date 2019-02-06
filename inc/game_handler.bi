@@ -275,9 +275,9 @@ sub game_handler_proto.update_main_menu (keyboard as keyboard_proto, joystick as
 				'init player's default values
 				select case this.game_difficulty_slot
 					case 1
-						player.lives = 4
+						player.lives = 3
 					case 2
-						player.lives = 5
+						player.lives = 3
 					case else
 						player.lives = 3
 				end select

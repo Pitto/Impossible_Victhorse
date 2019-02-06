@@ -143,14 +143,16 @@ KNOWN ISSUES
 
 IMPROVE: glitch of the player while jumping on the vertex of blocks
 CLEANUP directories
-CHECK Java the Hutt level respawn
+CHECK Java the Hutt level respawn?
+CHECK A floppy launch remains buffered when the played dies
 
 **** CHECK ALL " check this " COMMENTS in the code!!!! ****
 
-2019.02.06 - 0.5.5
+2019.02.06 - 0.5.5 / 0.5.6
 
 * Improved a bit the smoothness on Windows
 * Now the physics are update at given time (1/55 sec ATM)
+* reduced the lifespan of the directional floppyes
 
 ---
 

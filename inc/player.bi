@@ -827,11 +827,15 @@ Sub player_proto.check_block_collision (level_tiles() as tile_proto, level as le
 					
 					case block_semi_block
 						'BOTTOM
-						if is_point_into_area(xmid, this.y + this.h, j * TILE_W, i*TILE_H, j * TILE_W+TILE_W, i*TILE_H + _BLOCK_SEMI_BLOCK_HEIGHT) then
-							this.hit_bottom = true
-							this.y = i * TILE_H - this.h
-							this.y_speed = 0
-							level_tiles(i, j).collide_flag = true
+						if is_point_into_area	(xmid, this.y + this.h, j * TILE_W, _
+												i*TILE_H, j * TILE_W+TILE_W, _
+												i*TILE_H + _BLOCK_SEMI_BLOCK_HEIGHT) then
+							'andalso Cbool(this.action <> action_jump_facing_right) _
+							'andalso Cbool(this.action <> action_jump_facing_left) then				
+								this.hit_bottom = true
+								this.y = i * TILE_H - this.h
+								this.y_speed = 0
+								level_tiles(i, j).collide_flag = true
 						end if
 						
 					case block_evanescence

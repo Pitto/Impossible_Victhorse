@@ -27,7 +27,7 @@
 
 'define and consts______________________________________________________
 #define APP_NAME 				"IMPOSSIBLE VICTHORSE"
-#define APP_VERSION 			"Version 0.5.5"
+#define APP_VERSION 			"Version 0.5.6"
 #define APP_AUTHOR 				"Pitto"
 #define SCR_W 					640		
 #define SCR_H 					480
@@ -388,3 +388,5 @@ const as double _2PI = 2*_PI
 
 #DEFINE HIGHSCORE_ENTRIES 10
 #DEFINE LEVEL_INTRO_GET_READY_TIME 2
+
+#DEFINE ITEM_ID_PLAYER_BULLET_DIRECTIONAL_SPAN_LIFE 0.5
