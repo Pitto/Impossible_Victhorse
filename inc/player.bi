@@ -331,6 +331,31 @@ Sub player_proto.check_item_collision (item as item_proto ptr, level as level_pr
 					level.is_completed = true
 				end if
 			
+			'Jeff talks to the player giving useful tips	
+			case ITEM_ID_JEFF
+				if is_collision (	this.x, this.y, this.x + this.w, this.y + this.h, _
+										item->x, item->y, item->x + item->w, item->y + item->h)  then
+					item->is_reached_by_player = true
+				end if
+				
+				'if the player goes away from jeff the jeff disappears
+				if item->is_reached_by_player andalso _
+					Cbool(manhattan_distance(item->x, item->y, this.x, this.y) _
+					>  ITEM_ID_JEFF_DISTANCE_TO_DISAPPEAR) then
+					
+					item->delete_me = true
+					
+					'create blink and goodbye message
+					level.items = level.add_item(@level.items, item->x, item->y, _
+											ITEM_COIN_W, ITEM_COIN_H, 0, 0, _
+											ITEM_ID_BLINK, "", 0, this.difficulty_ratio)
+					
+					level.create_floating_label (item->x - len("...see you") * 8, item->y - 30, "...see you")
+					level.create_floating_label (item->x - len("later!") * 8, item->y - 10, "later!")
+
+
+				end if
+			
 			'player reaches a computer in order to get a keyword
 			'the player has to stand without moving in front of the computer
 			case ITEM_ID_KEYWORD

@@ -96,6 +96,8 @@ declare sub erase_exit_location (level_tiles() as tile_proto)
 declare sub remove_row_from_level (level_tiles() as tile_proto)
 declare sub remove_column_from_level (level_tiles() as tile_proto)
 
+declare sub load_txt (filename as string, txt() as string)
+
 function get_right_solid_block(col as Ulong, row as Ulong, level_tiles() as tile_proto, block_combinations() as Ubyte) as proto_block_type
 	dim right_solid_block as proto_block_type
 	dim perimeter as Ubyte
@@ -697,6 +699,46 @@ SUB load_whole_txt_file(Byref fn As String,  filearr() As String)
 
     ub = Ubound(filearr)
 END SUB
+
+
+sub load_txt (filename as string, txt() as string)
+
+	dim as string textline
+	dim as Ulong i, j, filenum, res
+
+	filenum = Freefile
+	res 	= Open (filename, For Input, As #filenum)
+	
+	i = 0
+	if res = 0 then 
+		While (Not Eof(filenum))
+			
+			Line Input #filenum, textline ' Get one whole text line
+			
+			redim preserve txt(0 to i)
+			
+			txt(i) = textline
+			
+			i +=1
+			
+		Wend
+
+		Close #filenum
+	end if
+	
+	#IFDEF DEBUG_MODE
+		utility_consmessage("game handler --- loaded txt")
+		
+		for i = 0 to Ubound(txt)
+			utility_consmessage(txt(i))
+		next i
+	#ENDIF
+
+
+
+end sub
+
+
 
 sub draw_button (x as integer, y as integer, w as integer,_
 							h as integer, label as string,_

@@ -220,6 +220,10 @@ for i = 0 to Ubound (block_icons_2x)
 									wallp_icons(i)->height * 2)
 next i
 
+redim jeff_tips(0 to 0) as string
+
+load_txt("../txt/jeff_tips_txt",  jeff_tips())
+
 '-----------------------------------------------------------------------
 
 
@@ -459,6 +463,13 @@ do
 				
 	if tile_mode = mode_select then
 		draw_tile_attributes (tile_attributes, gui.select_tab_id)
+		if 	tile_attributes.tile_type = mode_object andalso _
+			tile_attributes.id = 18 andalso _
+			tile_attributes.other  <= Ubound(jeff_tips) then
+			
+			draw string ( 50, SCR_H - 50), jeff_tips(tile_attributes.other)
+		
+		end if
 	end if
 	
 	draw_bottom_info 	(tile_mode, _

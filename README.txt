@@ -148,6 +148,10 @@ CHECK A floppy launch remains buffered when the played dies
 
 **** CHECK ALL " check this " COMMENTS in the code!!!! ****
 
+0.5.7
+
+* added a NPC that talks to the player giving useful tips
+
 2019.02.06 - 0.5.5 / 0.5.6
 
 * Improved a bit the smoothness on Windows

@@ -40,6 +40,7 @@ Type level_proto
 	
 	sprites_mega_blink (0 to 7) as FB.Image ptr
 
+	sprites_baloon (0 to 11) as FB.Image ptr
 	
 	sprites_enemy (0 to 99) as FB.Image ptr
 	sprites_enemy_2x (0 to 99) as FB.Image ptr
@@ -52,6 +53,9 @@ Type level_proto
 	
 	'visible bounding tiles: 0: TOP, 1: RIGHT; 2: BOTTOM, 3: LEFT
 	visible_bounding_tile (0 to 3) as Ubyte
+	
+	'text of the jeff's tips
+	redim jeff_tips (0 to 0) as string
 	
 	'items: things that can be catched or destroyed
 	dim items as item_proto ptr
@@ -99,6 +103,10 @@ Type level_proto
 	
 	declare sub load_block_icons(slot as Ulong)
 	
+	declare sub load_txt (filename as string, txt() as string)
+	
+	declare sub draw_baloon (x as Long, y as Long, txt as string, image_buffer as FB.Image ptr)
+	
 	Declare Constructor()
 	Declare Destructor()
 	
@@ -128,7 +136,7 @@ Constructor level_proto()
 	load_sprite_sheet 	(this.sprites_items_16x16(), 	128, 240, 8, 15,	"img/items_16x16.bmp")
 	load_sprite_sheet 	(this.sprites_items_32x24(), 	96, 24, 3, 1,	"img/items_32x24.bmp")
 	
-	
+	load_sprite_sheet	(this.sprites_baloon(), 48, 64, 3, 4, "img/baloon.bmp")
 	
 	load_sprite_sheet 	(this.sprites_block_moving(), 	128, 96, 4, 4,	"img/block_moving.bmp")
 	
@@ -199,6 +207,8 @@ Constructor level_proto()
 	
 	next i
 	
+	this.load_txt ("txt/jeff_tips_txt", jeff_tips())
+	
 End Constructor
 
 Destructor level_proto()
@@ -220,6 +230,10 @@ Destructor level_proto()
 		ImageDestroy this.sprites_horse(i)
 		ImageDestroy this.sprites_horse_2x(i)
 	
+	next i
+	
+	for i = 0 to Ubound ( this.sprites_baloon)
+		ImageDestroy this.sprites_baloon(i)
 	next i
 	
 	for i = 0 to Ubound (this.bitmap_block)
@@ -264,6 +278,109 @@ Destructor level_proto()
 	next i
 	
 End Destructor
+
+sub level_proto.draw_baloon (x as Long, y as Long, txt as string, image_buffer as FB.Image ptr) 
+
+	'thanks to Dodicat
+	'wordwrap routine
+	'freebasic.net/forum/viewtopic.php?f=15&t=18666&p=165482&hilit=wordwrap#p165482
+    
+	dim lines as Ulong = 0
+	dim max_len as Ulong = 0
+	dim line_len as Ulong = 0
+	dim carriage as boolean = false
+	dim x_offset as Long
+	dim as Ulong cols, rows, i, j
+	
+	
+	'calc the bounds of the comic baloon
+	for z as Long=0 to len(txt)-1
+		line_len +=1
+		if txt[z]=124 then
+			lines += 1
+			if line_len > max_len then max_len = line_len
+            line_len = 0
+            carriage = true
+		end if
+    next z
+    'last line check
+    if line_len > max_len then max_len = line_len
+    
+    if not carriage then
+		max_len = len(txt)
+		lines = 1
+	end if
+	
+	x_offset = -max_len * 8
+	
+	cols = max_len + 1
+	rows = lines + 2
+	
+	'line image_buffer, (x -16 + x_offset, y - lines * 16 - 16)-step(max_len*16 + 32,16*lines + 48), C_C64_GREY_2, BF
+   
+	dim as Long _x, _y
+    'draw the baloon
+    for i = 0 to rows
+		for j = 0 to cols
+			_x = x - j*16 + (cols *8) - 16
+			_y = y-i*16 + 16
+			if i = 0 and j = 0 then
+				'bottom right
+				put image_buffer, (_x,_y), sprites_baloon(8),trans
+			elseif i=0 and j = cols then
+				'bottom left
+				put image_buffer, (_x,_y), sprites_baloon(6),trans
+			elseif i=rows and j = 0 then
+				'top right
+				put image_buffer, (_x,_y), sprites_baloon(2),trans
+			elseif i=rows and j = cols then
+				'top left
+				put image_buffer, (_x,_y), sprites_baloon(0),trans
+			elseif i=rows then
+				'top bound
+				put image_buffer, (_x,_y), sprites_baloon(1),trans
+			elseif i=0 then
+				'bottom bound
+				put image_buffer, (_x,_y), sprites_baloon(7),trans
+			elseif j=cols then
+				'left bound
+				put image_buffer, (_x,_y), sprites_baloon(3),trans
+			elseif j=0 then
+				'right bound
+				put image_buffer, (_x,_y), sprites_baloon(5),trans
+			else
+				'top bound
+				put image_buffer, (_x,_y), sprites_baloon(4),trans
+			
+			end if
+			'line image_buffer, (x - j*16 + (cols *8) - 16, y-i*16 + 16)-step(16,16), C_WHITE, BF
+		next j
+	next i
+	'triangle
+    put image_buffer, (_x + cols*8 + 32,y + 30 ), sprites_baloon(10),trans
+    
+   ' line image_buffer, (x -16 + x_offset - 4, y - lines * 16 - 16 - 4)-step(max_len*16 + 40,16*lines + 56), C_C64_DARK_GREY_GREY_1, BF
+    
+	dim as Long dx=x,dy=y - lines * 16,_pos,count=0
+
+	'draw the txt
+    for z as Long=0 to len(txt)-1
+        _pos=dx+16*count
+        
+        if txt[z]=124 then
+            count=0
+            dy=dy+16
+            
+            continue for
+        end if
+        this.print_font (_pos + x_offset, dy, chr(txt[z]), image_buffer)
+        
+        count=count+1
+    next z
+	
+	
+
+end sub
 
 sub level_proto.print_font (x as Ulong, y as Ulong, txt as string, image_buffer as FB.Image ptr)
 	dim as ulong i, _x
@@ -507,6 +624,11 @@ sub level_proto.initialize_level_items(difficulty_ratio as single)
 													i*TILE_H + (TILE_H - ITEM_LITTLE_H)\2, _
 													ITEM_LITTLE_W, ITEM_LITTLE_H, 0,0,ITEM_ID_CANNON_RIGHT_LEFT, "",0, difficulty_ratio)
 					
+					case ITEM_ID_JEFF
+						this.items = this.add_item(	@this.items, j*TILE_W, i*TILE_H, _
+													TILE_W, ITEM_LITTLE_H, ITEM_ID_UPDOWN_PLATFORM_SPEED,_PI_HALF,_
+													ITEM_ID_JEFF, "",this.tiles(i,j).attributes.other, difficulty_ratio)
+					
 					case ITEM_ID_UPDOWN_PLATFORM
 						this.items = this.add_item(	@this.items, j*TILE_W, i*TILE_H, _
 													TILE_W, ITEM_LITTLE_H, ITEM_ID_UPDOWN_PLATFORM_SPEED,_PI_HALF,_
@@ -661,9 +783,25 @@ sub level_proto.draw_items(item as item_proto ptr, x as single, y as single, dif
 	dim kw as item_proto ptr
 	kw = item
 	
+	
 	while (item <> NULL)
 		select case item->id
 
+			case ITEM_ID_JEFF
+				if item->is_reached_by_player then
+					item->draw_item(x, y, this.sprites_enemy_2x(ITEM_ID_JEFF_SPRITE + 5 + CUlng(timer*10) mod 5), image_buffer)
+					if item->msg_slot >= 0 andalso item->msg_slot <= Ubound(this.jeff_tips) then
+						draw_baloon (item->x - x , item->y - y - 80, this.jeff_tips(item->msg_slot), image_buffer)
+					else
+						draw_baloon (item->x - x , item->y - y - 80, "Hello!", image_buffer)
+					end if 
+				else
+					item->draw_item(x, y, this.sprites_enemy_2x(ITEM_ID_JEFF_SPRITE + CUlng(timer*10) mod 5), image_buffer)
+					
+
+				end if
+				
+				
 			case ITEM_ID_HORSE_FACING_LEFT
 			
 				item->draw_item(x, y, this.sprites_horse_2x _
@@ -2038,5 +2176,42 @@ sub level_proto.load_block_icons(slot as Ulong)
 	for i as Ulong = 0 to Ubound(this.bitmap_block)
 		this.bitmap_block_2x		(i) = imagescale(this.bitmap_block(i), TILE_W, TILE_H)
 	next i
+
+end sub
+
+sub level_proto.load_txt (filename as string, txt() as string)
+
+	dim as string textline
+	dim as Ulong i, j, filenum, res
+
+	filenum = Freefile
+	res 	= Open (filename, For Input, As #filenum)
+	
+	i = 0
+	if res = 0 then 
+		While (Not Eof(filenum))
+			
+			Line Input #filenum, textline ' Get one whole text line
+			
+			redim preserve txt(0 to i)
+			
+			txt(i) = textline
+			
+			i +=1
+			
+		Wend
+
+		Close #filenum
+	end if
+	
+	#IFDEF DEBUG_MODE
+		utility_consmessage("game handler --- loaded txt")
+		
+		for i = 0 to Ubound(txt)
+			utility_consmessage(txt(i))
+		next i
+	#ENDIF
+
+
 
 end sub

@@ -18,6 +18,8 @@ Type item_proto
 	
 	sprite_offset as Ubyte
 	
+	msg_slot as Ubyte
+	
 	w as Ubyte
 	h as Ubyte
 	
@@ -143,6 +145,9 @@ sub item_proto.initialize_item	(x as Ulong, y as Ulong, w as Ulong, h as Ulong, 
 	this.delete_me = false
 	
 	select case id
+	
+		case ITEM_ID_JEFF
+			this.msg_slot = other
 	
 		case ITEM_ID_CANNON_BOTTOM_TOP
 		

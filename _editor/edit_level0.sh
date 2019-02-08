@@ -1,1 +1,1 @@
-./main ../engine/levels/level0.lev
+./main ../levels/level0.lev
