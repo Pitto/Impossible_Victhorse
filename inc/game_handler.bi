@@ -90,6 +90,9 @@ type game_handler_proto
 	hst as HighScoreTable
 	player_score as HighScore
 	
+	game_paused as boolean
+	game_paused_time_left as Long
+	
 	private:
 	
 	section as game_section_proto
@@ -112,6 +115,7 @@ constructor game_handler_proto()
 	this.set_game_section(_game_section_INTRO)
 	this.level_number = 0
 	this.timing = timer
+	this.game_paused = false
 	
 	this.set_exit_flag (false)
 	

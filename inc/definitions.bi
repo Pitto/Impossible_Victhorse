@@ -27,7 +27,7 @@
 
 'define and consts______________________________________________________
 #define APP_NAME 				"IMPOSSIBLE VICTHORSE"
-#define APP_VERSION 			"Version 0.5.7"
+#define APP_VERSION 			"Version 0.5.8"
 #define APP_AUTHOR 				"Pitto"
 #define SCR_W 					640		
 #define SCR_H 					480

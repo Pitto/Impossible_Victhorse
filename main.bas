@@ -247,6 +247,8 @@ do
 		
 		case _game_section_LEVEL_INITIALIZE
 
+			'IMPORTANT
+			game_handler.game_paused = false
 
 			level.load_level (game_handler.get_current_level(), level_file_name, victor.difficulty_ratio)
 
@@ -289,7 +291,17 @@ do
 			
 		case _game_section_LEVEL
 		
-		
+			'pause the game if "P" key is pressed
+			if 	keyboard.pressed(FB.SC_P) then 
+				game_handler.game_paused = not game_handler.game_paused
+				game_handler.game_paused_time_left = level.get_time_left()
+			end if
+			
+			if game_handler.game_paused then
+				level. set_time_left(game_handler.game_paused_time_left)
+			end if
+			
+			
 			
 			#IFDEF DEBUG_MODE
 				debug_info.get_time(Timer, False, True)
@@ -300,7 +312,7 @@ do
 			#ENDIF
 			
 
-			if f_t_s.update_physics then
+			if f_t_s.update_physics andalso game_handler.game_paused = false then
 				level.update_level_blocks()
 				level.update_level_items(@victor.points, victor.get_player_position(), sound_handler, victor.difficulty_ratio)
 			end if
@@ -309,7 +321,7 @@ do
 			
 			player_input.get_input(joystick, keyboard)
 			
-			if f_t_s.update_physics then
+			if f_t_s.update_physics andalso game_handler.game_paused = false then
 				victor.update_player(player_input, level, sound_handler)
 				
 				if victor.is_dead = false then
@@ -452,6 +464,22 @@ do
 					draw string canvas.original_size, (10, 10), "CHEAT MODE"
 				end if
 			#ENDIF
+			
+			'if game paused
+			
+			if game_handler.game_paused then
+			
+				for i = 0 to SCR_H step 2
+			
+				line canvas.original_size, (0,i)-step(SCR_W,0), C_C64_Black
+			
+				next i
+		
+				game_handler.print_font 	(SCR_W\2 - len("G A M E   P A U S E D")*8, SCR_H\2, _
+											"G A M E   P A U S E D",_
+											canvas.original_size)
+			
+			end if
 								
 		case _game_section_GAME_OVER
 		
